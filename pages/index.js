@@ -1,21 +1,29 @@
-import {useState, useRef} from "react"
+import React from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
-// import Person from "./../components/Person"
 import headerimg from "./../public/img/header-img.jpg"
-import Input from "../components/Input"
-import Buttton from "../components/Buttton"
 
 
 export default function Home() {
+  const [persons, setPersons] = React.useState(data)
+  const [first_name, setFirstName] = React.useState("")
+  const [last_name, setlastName] = React.useState("")
+  const [email, setEmail] = React.useState("")
 
-  const ref = useRef()
-
-  function currentValue(){
-    console.log(ref.current.value)
+  function addPerson(e){
+    // e.preventDefault()
+    const newPerson = {
+      id: Date.now(),
+      first_name,
+      last_name,
+      email,
+    }
+    setPersons([...persons, newPerson])
+    setFirstName("")
+    setlastName("")
+    setEmail("")
   }
-
 
   return (
     <div>
@@ -25,10 +33,36 @@ export default function Home() {
       </Head>
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
+
+      <div className="form-person">
+        <input
+           value={first_name}
+           onChange={(e) => setFirstName(e.target.value)}
+           placeholder="Enter First Name"
+        />
+        <input
+           value={last_name}
+           onChange={(e) => setlastName(e.target.value)}
+           placeholder="Enter Last Name"
+        />
+        <input
+           value={email}
+           onChange={(e) => setEmail(e.target.value)}
+           placeholder="Enter Email"
+        />
+        <button onClick={() => addPerson()}>Add Person</button>
+      </div>
       
-      <div className="test-form">
-        <Input ref={ref} placeholder="Enter text" />
-        <Buttton onClick={() => currentValue()}>Add Ref</Buttton>
+      <div className="persons-list">
+        <ul>
+          {persons.map((person) => (
+             <li key={person.id}>
+              <h2>{person.first_name}</h2>
+              <h3>{person.last_name}</h3>
+              <p>{person.email}</p>
+             </li>
+          ))}
+        </ul>
       </div>
     </div>
   )

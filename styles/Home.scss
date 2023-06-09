@@ -1,19 +1,17 @@
-.custon-input {
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.custom-button {
-    padding: 5px 10px;
-    width: 30%;
-    margin: 0 auto;
-    border-radius: 5px;
-}
-
-.test-form {
-    width: 30%;
-    margin-top: 30px;
+.form-person {
+    margin-top: 20px;
+    width: 20%;
     display: flex;
     flex-direction: column;
-    gap:10px;
+    gap: 10px;
+}
+
+.form-person input {
+    padding: 5px 10px;
+}
+
+.form-person button {
+    width: 40%;
+    margin: 0 auto;
+    padding: 5px 10px;
 }
