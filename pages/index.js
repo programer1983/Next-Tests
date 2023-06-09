@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState, useRef} from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
@@ -9,6 +9,12 @@ import Buttton from "../components/Buttton"
 
 
 export default function Home() {
+
+  const ref = useRef()
+
+  function currentValue(){
+    console.log(ref.current.value)
+  }
 
 
   return (
@@ -21,8 +27,8 @@ export default function Home() {
       <Image width={250} height={150}src={headerimg} alt="preview"/>
       
       <div className="test-form">
-        <Input placeholder="Enter text" />
-        <Buttton>Add</Buttton>
+        <Input ref={ref} placeholder="Enter text" />
+        <Buttton onClick={() => currentValue()}>Add Ref</Buttton>
       </div>
     </div>
   )

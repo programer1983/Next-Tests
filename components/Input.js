@@ -1,9 +1,9 @@
-import React from 'react'
+import React  from 'react'
 
-const Input = (props) => {
+const Input = React.forwardRef((props, ref) => {
   return (
-    <input {...props} className='custon-input'/>
+    <input ref={ref} {...props} className='custon-input'/>
   )
-}
+})
 
 export default Input
