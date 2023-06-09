@@ -25,14 +25,17 @@ export default function Home() {
       
       <div className="persons-list">
         <ul>
-          {persons.map((person) => (
+          {persons.length === 0 ? (
+          <h1 className="error-message">Person Not Found</h1>
+          ) : (
+            persons.map((person) => (
              <li key={person.id}>
               <h2>{person.first_name}</h2>
               <h3>{person.last_name}</h3>
               <p>{person.email}</p>
               <button onClick={() => removePerson(person.id)}>X</button>
              </li>
-          ))}
+          )))}
         </ul>
       </div>
     </div>
