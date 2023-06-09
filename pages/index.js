@@ -2,12 +2,13 @@ import {useState} from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
-import Person from "./../components/Person"
+// import Person from "./../components/Person"
 import headerimg from "./../public/img/header-img.jpg"
+import Input from "../components/Input"
+import Buttton from "../components/Buttton"
 
 
 export default function Home() {
-  const [persons, setPersons] = useState(data)
 
 
   return (
@@ -18,13 +19,11 @@ export default function Home() {
       </Head>
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
-
-       <h1>Persons List</h1>
-      <ul>
-        {persons.map((person) => (
-          <Person key={person.id} person={person}/>
-        ))}
-      </ul>
+      
+      <div className="test-form">
+        <Input placeholder="Enter text" />
+        <Buttton>Add</Buttton>
+      </div>
     </div>
   )
 }
