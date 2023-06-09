@@ -3,16 +3,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
 import headerimg from "./../public/img/header-img.jpg"
+import Form from "../components/Form"
 
 
 export default function Home() {
-  const [persons, setPersons] = React.useState(data)
-  const [person, setPerson] = React.useState({first_name: "", last_name: "", email: ""})
 
-  function addPerson(e){
-    // e.preventDefault()
-    setPersons([...persons, {...person, id: Date.now()}])
-    setPerson({first_name: "", last_name: "", email: ""})
+  const [persons, setPersons] = React.useState(data)
+
+  function addPerson(person){
+    setPersons([...persons, person])
   }
 
   return (
@@ -23,25 +22,8 @@ export default function Home() {
       </Head>
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
-
-      <div className="form-person">
-        <input
-           value={person.first_name}
-           onChange={(e) => setPerson({...person, first_name: e.target.value})}
-           placeholder="Enter First Name"
-        />
-        <input
-           value={person.last_name}
-           onChange={(e) => setPerson({...person, last_name: e.target.value})}
-           placeholder="Enter Last Name"
-        />
-        <input
-           value={person.email}
-           onChange={(e) => setPerson({...person, email: e.target.value})}
-           placeholder="Enter Email"
-        />
-        <button onClick={() => addPerson()}>Add Person</button>
-      </div>
+      
+        <Form  create={addPerson} persons={persons}/>
       
       <div className="persons-list">
         <ul>
