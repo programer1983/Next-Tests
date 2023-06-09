@@ -3,15 +3,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
 import headerimg from "./../public/img/header-img.jpg"
-import Form from "../components/Form"
 
 
 export default function Home() {
 
   const [persons, setPersons] = React.useState(data)
 
-  function addPerson(person){
-    setPersons([...persons, person])
+  function removePerson(id){
+    setPersons(persons.filter(person => person.id !== id))
   }
 
   return (
@@ -23,7 +22,6 @@ export default function Home() {
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
       
-        <Form  create={addPerson} persons={persons}/>
       
       <div className="persons-list">
         <ul>
@@ -32,6 +30,7 @@ export default function Home() {
               <h2>{person.first_name}</h2>
               <h3>{person.last_name}</h3>
               <p>{person.email}</p>
+              <button onClick={() => removePerson(person.id)}>X</button>
              </li>
           ))}
         </ul>
