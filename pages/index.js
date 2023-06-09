@@ -7,22 +7,12 @@ import headerimg from "./../public/img/header-img.jpg"
 
 export default function Home() {
   const [persons, setPersons] = React.useState(data)
-  const [first_name, setFirstName] = React.useState("")
-  const [last_name, setlastName] = React.useState("")
-  const [email, setEmail] = React.useState("")
+  const [person, setPerson] = React.useState({first_name: "", last_name: "", email: ""})
 
   function addPerson(e){
     // e.preventDefault()
-    const newPerson = {
-      id: Date.now(),
-      first_name,
-      last_name,
-      email,
-    }
-    setPersons([...persons, newPerson])
-    setFirstName("")
-    setlastName("")
-    setEmail("")
+    setPersons([...persons, {...person, id: Date.now()}])
+    setPerson({first_name: "", last_name: "", email: ""})
   }
 
   return (
@@ -36,18 +26,18 @@ export default function Home() {
 
       <div className="form-person">
         <input
-           value={first_name}
-           onChange={(e) => setFirstName(e.target.value)}
+           value={person.first_name}
+           onChange={(e) => setPerson({...person, first_name: e.target.value})}
            placeholder="Enter First Name"
         />
         <input
-           value={last_name}
-           onChange={(e) => setlastName(e.target.value)}
+           value={person.last_name}
+           onChange={(e) => setPerson({...person, last_name: e.target.value})}
            placeholder="Enter Last Name"
         />
         <input
-           value={email}
-           onChange={(e) => setEmail(e.target.value)}
+           value={person.email}
+           onChange={(e) => setPerson({...person, email: e.target.value})}
            placeholder="Enter Email"
         />
         <button onClick={() => addPerson()}>Add Person</button>
