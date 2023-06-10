@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
 import headerimg from "./../public/img/header-img.jpg"
-import Select from "../components/Select"
 
 export const getStaticProps = async () => {
   return {
@@ -14,12 +13,13 @@ export const getStaticProps = async () => {
 export default function Home({persons}) {
 
   const [users, setUsers] = React.useState(persons)
-  const [select, setSelect] = React.useState("")
+  const [search, setSearch] = React.useState("")
 
-  function selectPersons(sort){
-    setSelect(sort)
-    setUsers([...users.sort((a, b) => a[sort].localeCompare(b[sort]))])
+  function searchUsers(){
+    return users.filter(user => user.first_name.toLowerCase().includes(search.toLowerCase()))
   }
+
+  const usersSearch = searchUsers()
 
   return (
     <div>
@@ -29,27 +29,22 @@ export default function Home({persons}) {
       </Head>
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
-      
-      
-        <Select
-          value={select}
-          selectPersons={selectPersons}
-          defaultName="Select"
-          options={[
-              {value: "first_name", name: "By first name"},
-              {value: "last_name", name: "By last name"},
-            ]}
-          />
+
+      <input 
+         value={search} 
+         onChange={(e) => setSearch(e.target.value)}
+         placeholder="Search"
+         className="search-input"
+      />
       
       
       <div className="persons-list">
         <ul>
-          {users.map((person) => (
+          {usersSearch.map((person) => (
              <li key={person.id}>
               <h2>{person.first_name}</h2>
               <h3>{person.last_name}</h3>
               <p>{person.email}</p>
-              <button onClick={() => removePerson(person.id)}>X</button>
              </li>
           ))}
         </ul>
