@@ -4,13 +4,19 @@ import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
 import headerimg from "./../public/img/header-img.jpg"
 
+export const getStaticProps = async () => {
+  return {
+    props: {persons: data}
+  }
+}
 
-export default function Home() {
 
-  const [persons, setPersons] = React.useState(data)
+export default function Home({persons}) {
+
+  const [users, setUsers] = React.useState(persons)
 
   function removePerson(id){
-    setPersons(persons.filter(person => person.id !== id))
+    setUsers(users.filter(person => person.id !== id))
   }
 
   return (
@@ -25,10 +31,10 @@ export default function Home() {
       
       <div className="persons-list">
         <ul>
-          {persons.length === 0 ? (
+          {users.length === 0 ? (
           <h1 className="error-message">Person Not Found</h1>
           ) : (
-            persons.map((person) => (
+            users.map((person) => (
              <li key={person.id}>
               <h2>{person.first_name}</h2>
               <h3>{person.last_name}</h3>
