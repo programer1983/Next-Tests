@@ -1,21 +1,4 @@
-.form-person {
-    margin-top: 20px;
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.form-person input {
-    padding: 5px 10px;
-}
-
-.form-person button {
-    width: 40%;
-    margin: 0 auto;
-    padding: 5px 10px;
-}
-
-.error-message {
-    color: red;
+.select-user {
+    display: block; 
+    margin: 10px 0px;
 }
