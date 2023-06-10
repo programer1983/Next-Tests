@@ -15,11 +15,10 @@ export default function Home({persons}) {
   const [users, setUsers] = React.useState(persons)
   const [search, setSearch] = React.useState("")
 
-  function searchUsers(){
+  const  searchUsers = React.useMemo(() => {
     return users.filter(user => user.first_name.toLowerCase().includes(search.toLowerCase()))
-  }
+  }, [users, search])
 
-  const usersSearch = searchUsers()
 
   return (
     <div>
@@ -40,7 +39,7 @@ export default function Home({persons}) {
       
       <div className="persons-list">
         <ul>
-          {usersSearch.map((person) => (
+          {searchUsers.map((person) => (
              <li key={person.id}>
               <h2>{person.first_name}</h2>
               <h3>{person.last_name}</h3>
