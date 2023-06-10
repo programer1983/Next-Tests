@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import data from "./../data/MOCK_DATA.json"
 import headerimg from "./../public/img/header-img.jpg"
-import Modal from "../components/Modal"
+import SortAndSearch from "../hoocks/UserHoock"
 
 export const getStaticProps = async () => {
   return {
@@ -11,20 +11,19 @@ export const getStaticProps = async () => {
   }
 }
 
+const options = [
+  {value: "first_name", name: "By first name"},
+  {value: "last_name", name: "By last name"},
+]
+
+const defaultName = "Select"
+
 export default function Home({persons}) {
   const [users, setUsers] = React.useState(persons)
-  const [person, setPerson] = React.useState({first_name: "", last_name: "", email: ""})
-  const [modal, setModal] = React.useState(false)
+  const [select, setSelect] = React.useState({sort: "", query: ""})
 
-   function addPerson(e){
-    const newPerson = {
-      ...person,
-      id: Date.now()
-    }
-    setUsers([...users, newPerson])
-    setPerson({first_name: "", last_name: "", email: ""})
-    setModal(false)
-   }
+
+  const searchAndSort = SortAndSearch(users, select.sort, select.query)
 
 
   return (
@@ -35,33 +34,31 @@ export default function Home({persons}) {
       </Head>
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
+      
+      <div className="sort-select"> 
+        <input 
+          value={select.query} 
+          onChange={(e) => setSelect({...select, query: e.target.value})}
+          placeholder="Search"
+        />
 
-      <button onClick={() => setModal(true)}>Add Person</button>
+        <select
+          value={select.sort}
+          onChange={(e) => setSelect({...select, sort: e.target.value})}
+        >
+          <option value="">{defaultName}</option>
 
-      <Modal visible={modal} setVisible={setModal}>
-        <div className="person-form">
-          <input
-            value={person.first_name}
-            onChange={(e) => setPerson({...person, first_name: e.target.value})}
-            placeholder="Enter first name"
-          />
-          <input
-            value={person.last_name}
-            onChange={(e) => setPerson({...person, last_name: e.target.value})}
-            placeholder="Enter last name"
-          />
-          <input
-            value={person.email}
-            onChange={(e) => setPerson({...person, email: e.target.value})}
-            placeholder="Enter email"
-          />
-          <button onClick={() => addPerson()}>Add Person</button>
-        </div>
-      </Modal>
-
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+      </div>
+     
       <div className="persons-list">
         <ul>
-          {users.map((person) => (
+          {searchAndSort.map((person) => (
              <li key={person.id}>
               <h2>{person.first_name}</h2>
               <h3>{person.last_name}</h3>
