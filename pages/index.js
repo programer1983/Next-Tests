@@ -2,33 +2,11 @@ import React from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import headerimg from "./../public/img/header-img.jpg"
-import Loader from "../components/Loader"
-import axios from "axios"
-
-export const getStaticProps = async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users")
-  const data = await response.json()
-
-  if (!data){
-    return {
-      notFound: true,
-    }
-  }
-  
-  return {
-    props: {persons: data}
-  }
-}
+import Link from "next/link"
 
 
-export default function Home({persons}) {
-  const [loader, setLoader] = React.useState(false)
+export default function Home() {
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      setLoader(true)
-    }, 2000)
-  }, [loader])
 
   return (
     <div className="main-container">
@@ -38,21 +16,9 @@ export default function Home({persons}) {
       </Head>
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
-      
-      <div className="persons-list">
-        <ul>
-          {!loader ? (
-          <Loader />
-          ) : (
-            persons.map((person) => (
-             <li key={person.id}>
-              <h2>{person.name}</h2>
-              <h3>{person.username}</h3>
-              <p>{person.email}</p>
-             </li>
-          )))}
-        </ul>
-      </div>
+
+      <Link className="users-link" href="users">Get All Users</Link>
+      <Link className="users-link" href="posts">Get All Posts</Link>
     </div>
   )
 }
