@@ -2,6 +2,8 @@ import React from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import headerimg from "./../public/img/header-img.jpg"
+import Loader from "../components/Loader"
+import axios from "axios"
 
 export const getStaticProps = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/users")
@@ -20,6 +22,13 @@ export const getStaticProps = async () => {
 
 
 export default function Home({persons}) {
+  const [loader, setLoader] = React.useState(false)
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setLoader(true)
+    }, 2000)
+  }, [loader])
 
   return (
     <div className="main-container">
@@ -30,17 +39,18 @@ export default function Home({persons}) {
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
       
-    
-     
       <div className="persons-list">
         <ul>
-          {persons.map((person) => (
+          {!loader ? (
+          <Loader />
+          ) : (
+            persons.map((person) => (
              <li key={person.id}>
               <h2>{person.name}</h2>
               <h3>{person.username}</h3>
               <p>{person.email}</p>
              </li>
-          ))}
+          )))}
         </ul>
       </div>
     </div>

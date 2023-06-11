@@ -5,9 +5,22 @@
     align-items: center;
 } 
 
-.sort-select {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px 0px;
+.loader {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px dashed rgb(39, 162, 39);
+    animation: rotate 2s infinite linear;
+    margin-right: 70px;
+    margin-top: 50px;
+}
+
+
+@keyframes rotate {
+    from {
+       transform: rotate(0deg) scale(1);
+    }
+    to {
+        transform: rotate(360deg) scale(1.2);
+    }
 }
