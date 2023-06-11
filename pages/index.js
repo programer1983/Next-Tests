@@ -1,30 +1,25 @@
 import React from "react"
 import Head from 'next/head'
 import Image from 'next/image'
-import data from "./../data/MOCK_DATA.json"
 import headerimg from "./../public/img/header-img.jpg"
-import SortAndSearch from "../hoocks/UserHoock"
 
 export const getStaticProps = async () => {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users")
+  const data = await response.json()
+
+  if (!data){
+    return {
+      notFound: true,
+    }
+  }
+  
   return {
     props: {persons: data}
   }
 }
 
-const options = [
-  {value: "first_name", name: "By first name"},
-  {value: "last_name", name: "By last name"},
-]
-
-const defaultName = "Select"
 
 export default function Home({persons}) {
-  const [users, setUsers] = React.useState(persons)
-  const [select, setSelect] = React.useState({sort: "", query: ""})
-
-
-  const searchAndSort = SortAndSearch(users, select.sort, select.query)
-
 
   return (
     <div className="main-container">
@@ -35,33 +30,14 @@ export default function Home({persons}) {
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
       
-      <div className="sort-select"> 
-        <input 
-          value={select.query} 
-          onChange={(e) => setSelect({...select, query: e.target.value})}
-          placeholder="Search"
-        />
-
-        <select
-          value={select.sort}
-          onChange={(e) => setSelect({...select, sort: e.target.value})}
-        >
-          <option value="">{defaultName}</option>
-
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-      </div>
+    
      
       <div className="persons-list">
         <ul>
-          {searchAndSort.map((person) => (
+          {persons.map((person) => (
              <li key={person.id}>
-              <h2>{person.first_name}</h2>
-              <h3>{person.last_name}</h3>
+              <h2>{person.name}</h2>
+              <h3>{person.username}</h3>
               <p>{person.email}</p>
              </li>
           ))}
