@@ -6,40 +6,7 @@
     align-items: center;
 } 
 
-.users-link {
-    margin-top: 30px;
-    text-decoration: none;
-    font-size: 35px;
-    color: rgb(54, 144, 54);
-    transition: all 0.5s ease;
-}
-
-.users-link:hover {
-    text-decoration: underline;
-    color: rgb(86, 177, 86);
-}
-
-.persons-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 30px;
-    list-style: none;
-}
-
-.users-title {
-    margin-right: 60px;
-}
-
-.link-user {
-    font-size: 20px;
-    position: absolute;
-    top: 0;
-    left: 20px;
-}
-
-.posts-list {
-    max-width: 700px;
+.users-list {
     margin-top: 30px;
     list-style: none;
     display: flex;
