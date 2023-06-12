@@ -1,12 +1,13 @@
 import '../styles/globals.css'
 import "./../styles/Home.scss"
-import {GlobalContext} from "./../context/Context"
+import { Provider } from 'react-redux'
+import {store} from "./../store/Store"
 
 function MyApp({ Component, pageProps }) {
   return (
-  <GlobalContext>
-    <Component {...pageProps} />
-  </GlobalContext>
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
 )}
 
-export default MyApp
+export default MyApp 
