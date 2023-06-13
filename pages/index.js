@@ -2,32 +2,13 @@ import React from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import headerimg from "./../public/img/header-img.jpg"
-import { useDispatch, useSelector } from "react-redux"
-import {loadingPosts, succesPosts, errorPosts} from "./../store/Reducer"
-
 
 export default function Home() {
- const {loading, posts, error} = useSelector(state => state.globalReducer)
- const dispatch = useDispatch()
+  const [tabs, setTabs] = React.useState(1)
 
- React.useEffect(() => {
-  async function fetchPosts(){
-    try {
-      dispatch(loadingPosts())
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts")
-      const data = await res.json()
-      dispatch(succesPosts(data))
-    }catch(err){
-      dispatch(errorPosts(err.message))
-    }
-   }
-   fetchPosts()
- }, [])
-
- 
- if (loading){
-  return <h1>Loading...</h1>
-}
+  function toggleTabs(index){
+    setTabs(index)
+  }
 
   return (
     <div className="main-container">
@@ -38,14 +19,51 @@ export default function Home() {
 
       <Image width={250} height={150}src={headerimg} alt="preview"/>
 
-     <ul className="posts-list">
-      {error ? <h2>{error}</h2> : posts.map((post) => (
-        <li key={post.id}>
-          <h2>{post.id}. {post.title}</h2>
-          <h3>{post.body}</h3>
-        </li>
-      ))}
-    </ul>
+      <div className="tabs">
+        <div className="tabs__button">
+          <button
+            style={{color: tabs === 1 && "white"}}
+            className={tabs === 1 ? "tab__button active__button" : "tab__button"}
+            onClick={() => toggleTabs(1)}
+            >
+              Tab 1
+          </button>
+          <button
+            style={{color: tabs === 2 && "white"}}
+            className={tabs === 2 ? "tab__button active__button" : "tab__button"}
+            onClick={() => toggleTabs(2)}
+            >
+              Tab 2
+          </button>
+          <button
+            style={{color: tabs === 3 && "white"}}
+            className={tabs === 3 ? "tab__button active__button" : "tab__button"}
+            onClick={() => toggleTabs(3)}
+            >
+              Tab 3
+          </button>
+        </div>
+        <div className="context">
+          <div className={tabs === 1 ? "context__card active__content" : "context__card"}>
+            <h2 className="context__title">Context 1</h2>
+            <div className="context__text">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium diam sit amet nunc finibus, ac commodo magna euismod. Duis felis leo, varius vel consequat eget, scelerisque vitae mauris</p>
+            </div>
+          </div>
+          <div className={tabs === 2 ? "context__card active__content" : "context__card"}>
+            <h2 className="context__title">Context 2</h2>
+            <div className="context__text">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium diam sit amet nunc finibus, ac commodo magna euismod. Duis felis leo, varius vel consequat eget, scelerisque vitae mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium diam sit amet nunc finibus, ac commodo magna euismod. Duis felis leo, varius vel consequat eget, scelerisque vitae mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium diam sit amet nunc finibus, ac commodo magna euismod. Duis felis leo, varius vel consequat eget, scelerisque vitae mauris</p>
+            </div>
+          </div>
+          <div className={tabs === 3 ? "context__card active__content" : "context__card"}>
+            <h2 className="context__title">Context 3</h2>
+            <div className="context__text">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium diam sit amet nunc finibus, ac commodo magna euismod. Duis felis leo, varius vel consequat eget, scelerisque vitae mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium diam sit amet nunc finibus, ac commodo magna euismod. Duis felis leo, varius vel consequat eget, scelerisque vitae mauris. </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

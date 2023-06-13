@@ -6,11 +6,35 @@
     align-items: center;
 } 
 
-.posts-list {
-    width: 700px;
-    margin-top: 30px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.tabs {
+    max-width: 700px;
+    margin: 50px auto;
+    border: 2px solid #000;
 }
+
+.tabs__button {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.tab__button {
+    width: 100%;
+    height: 60px;
+    color: #000;
+}
+
+.active__button {
+    background-color: #444242;
+}
+
+.context__card  {
+    padding: 20px 15px;
+    width: 100%;
+    height: 200px;
+    display: none
+}
+
+.active__content {
+    display: block;
+}
+
